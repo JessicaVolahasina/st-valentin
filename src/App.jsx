@@ -1,5 +1,4 @@
 import { useState } from "react";
-
 const NO_PHRASES = [
   "Wrong answer 😌",
   "Are you sure about that?",
@@ -9,15 +8,52 @@ const NO_PHRASES = [
   "Don’t play with me",
   "Okay now click yes",
 ];
-
 export default function App() {
-  const [noClicks, setNoClicks] = useState(0);
-  const [isValentine, setIsValentine] = useState(false);
+  const [code, setCode] = useState("");
+  const [unlocked, setUnlocked] = useState(false);
+  const [error, setError] = useState("");
   const yesButtonSize = noClicks * 20 + 16;
 
   const firstImg = "https://media.tenor.com/VIChDQ6ejRQAAAAj/jumping-bear-hearts-no-png.gif";
   const secondImg = "https://media.tenor.com/f1xnRxTRxLAAAAAj/bears-with-kisses-bg.gif";
 
+
+
+  const CORRECT_CODE = "101225"; // exemple : 13/06/20 = date de rencontre
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (code === CORRECT_CODE) {
+      setUnlocked(true);
+      setError("");
+    } else {
+      setError("Mauvais code 😏");
+    }
+  };
+
+  if (!unlocked) {
+    return (
+      <div style={{textAlign: "center", marginTop: "50px", fontFamily: "Arial"}}>
+        <h2>You have to tape the password 💖</h2>
+        <p>(Indice: Le jour où tout a commencé)</p>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="password"
+            value={code}
+            onChange={(e) => setCode(e.target.value)}
+            placeholder="6 chiffres"
+            maxLength={6}
+            style={{padding: "10px", fontSize: "16px"}}
+          />
+          <br /><br />
+          <button type="submit" style={{padding: "10px 20px", fontSize: "16px"}}>Entrer</button>
+        </form>
+        {error && <p style={{color: "red"}}>{error}</p>}
+      </div>
+    );
+  }
+
+  // Si le code est correct → votre App Valentine originale
   return (
     <div style={{
       display: "flex",
@@ -72,5 +108,6 @@ export default function App() {
         </>
       )}
     </div>
+  
   );
 }
