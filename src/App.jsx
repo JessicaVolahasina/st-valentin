@@ -9,6 +9,8 @@ const NO_PHRASES = [
   "Okay now click yes",
 ];
 export default function App() {
+  const [noClicks, setNoClicks] = useState(0);
+  const [isValentine, setIsValentine] = useState(false);
   const [code, setCode] = useState("");
   const [unlocked, setUnlocked] = useState(false);
   const [error, setError] = useState("");
